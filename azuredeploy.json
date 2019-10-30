@@ -9,17 +9,12 @@
       "type": "string"
     },
     "siteLocation": {
-      "type": "string"
+       "type": "String",
+        "value": "eastus"
     },
     "sku": {
       "type": "string",
-      "allowedValues": [
-        "Free",
-        "Shared",
-        "Basic",
-        "Standard"
-      ],
-      "defaultValue": "Free"
+      "value": "F1"
     },
     "workerSize": {
       "type": "string",
@@ -103,3 +98,4 @@
       ]
     }
   ]
+}
