@@ -262,7 +262,7 @@
   },
   {
     "apiVersion": "2016-03-01",
-    "type": "sourcercontrols",
+    "type": "sourcecontrols",
     "name": "web",
     "dependsOn": [
       "[resourceId('Microsoft.Web/Sites/', concat('webSite', uniqueString(resourceGroup().id)))]"
