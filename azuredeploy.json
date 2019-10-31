@@ -57,7 +57,7 @@
 	  "defaultValue": "https://github.com/jparrab/CoemCloudJourney"
     },
     "branch": {
-      "type": "string"
+      "type": "string",
 	  "defaultValue": "master"
     }
   },
