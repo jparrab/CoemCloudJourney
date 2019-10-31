@@ -17,8 +17,27 @@
             }
         },
         "location": {
-            "defaultValue": "[resourceGroup().location]",
             "type": "String",
+			"allowedValues": [ 
+                "Central US", 
+                "East US", 
+                "East US 2", 
+                "North Central US", 
+                "South Central US", 
+                "West US",
+                "Canada Central", 
+                "North Europe", 
+                "West Europe", 
+                "East Asia", 
+                "Southeast Asia", 
+                "Japan East", 
+                "Japan West", 
+                "Brazil South", 
+                "Australia East", 
+                "Australia Southeast", 
+                "West India", 
+                "Central India", 
+                "South India" 
             "metadata": {
                 "description": "Location for all resources"
             }
