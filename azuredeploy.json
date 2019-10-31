@@ -161,11 +161,11 @@
         },
 		{
           "apiVersion": "2016-03-01",
+		  "condition": "[greater(length(parameters('repoUrl')), 0)]",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites',  variables('webSiteName'))]",
-            "[concat('Microsoft.Web/Sites/',  variables('webSiteName'), '/config/web')]"
+            "[resourceId('Microsoft.Web/Sites',  variables('webSiteName'))]"
           ],
           "properties": {
             "RepoUrl": "[parameters('repoUrl')]",
