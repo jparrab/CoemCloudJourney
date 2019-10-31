@@ -180,7 +180,7 @@
   "outputs": {
     "siteUri": {
       "type": "string",
-      "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName'))).hostnames[0]]"
+      "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName')))]"
     },
     "sqlSvrFqdn": {
       "type": "string",
