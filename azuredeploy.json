@@ -53,10 +53,12 @@
       }
     },
 	"repoUrl": {
-      "type": "string"
+      "type": "string",
+	  "defaultValue": "https://github.com/jparrab/CoemCloudJourney"
     },
     "branch": {
       "type": "string"
+	  "defaultValue": "master"
     }
   },
   "variables": {
@@ -160,7 +162,7 @@
           }
         },
 		{
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2014-04-01",
 		  "condition": "[greater(length(parameters('repoUrl')), 0)]",
           "name": "web",
           "type": "sourcecontrols",
