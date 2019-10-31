@@ -162,11 +162,11 @@
           }
         },
 		{
-          "apiVersion": "2018-02-01",
+      "apiVersion": "2015-08-01",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites', concat('webSite', uniqueString(resourceGroup().id)))]"
+            "[resourceId('Microsoft.Web/Sites/', concat('webSite', uniqueString(resourceGroup().id)))]"
           ],
           "properties": {
             "RepoUrl": "[parameters('repoUrl')]",
