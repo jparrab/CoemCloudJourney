@@ -160,15 +160,5 @@
         }
       ]
   }    
-  ],
-  "outputs": {
-    "siteUri": {
-      "type": "string",
-      "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName')))]"
-    },
-    "sqlSvrFqdn": {
-      "type": "string",
-      "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName]"
-    }
-  }
+  ]
 }
