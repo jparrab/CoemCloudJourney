@@ -1,80 +1,58 @@
 {
-  "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Resources/deployments/Microsoft.Template",
-  "name": "Microsoft.Template",
-  "type": "Microsoft.Resources/deployments",
-  "tags": {
-    "marketplaceItemId": "Microsoft.Template",
-    "primaryResourceId": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourcegroups/CloudJourneyCOEM"
-  },
-  "properties": {
-    "templateLink": {
-      "uri": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-webapp-basic-windows/azuredeploy.json",
-      "contentVersion": "1.0.0.0"
-    },
-    "templateHash": "13436529045413758475",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
     "parameters": {
-      "webAppName": {
-        "type": "String",
-        "value": "CoemCloudJourney"
-      },
-      "sku": {
-        "type": "String",
-        "value": "F1"
-      },
-      "location": {
-        "type": "String",
-        "value": "eastus"
-      }
+        "webAppName": {
+            "minLength": 2,
+            "type": "String",
+            "metadata": {
+                "description": "Base name of the resource such as web app name and app service plan"
+            }
+        },
+        "sku": {
+            "defaultValue": "S1",
+            "type": "String",
+            "metadata": {
+                "description": "The SKU of App Service Plan, by default is Standard S1"
+            }
+        },
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources"
+            }
+        }
     },
-    "mode": "Incremental",
-    "debugSetting": {
-      "detailLevel": "None"
+    "variables": {
+        "webAppPortalName": "[concat(parameters('webAppName'), '-webapp')]",
+        "appServicePlanName": "[concat('AppServicePlan-', parameters('webAppName'))]"
     },
-    "provisioningState": "Succeeded",
-    "timestamp": "2019-10-30T15:54:20.5822673Z",
-    "duration": "PT22.957525S",
-    "correlationId": "a4d48b8f-2d01-43ec-864d-4a94d6634e0c",
-    "providers": [
-      {
-        "namespace": "Microsoft.Web",
-        "resourceTypes": [
-          {
-            "resourceType": "serverfarms",
-            "locations": [
-              "eastus"
-            ]
-          },
-          {
-            "resourceType": "sites",
-            "locations": [
-              "eastus"
-            ]
-          }
-        ]
-      }
-    ],
-    "dependencies": [
-      {
-        "dependsOn": [
-          {
-            "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/serverfarms/AppServicePlan-CoemCloudJourney",
-            "resourceType": "Microsoft.Web/serverfarms",
-            "resourceName": "AppServicePlan-CoemCloudJourney"
-          }
-        ],
-        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/sites/CoemCloudJourney-webapp",
-        "resourceType": "Microsoft.Web/sites",
-        "resourceName": "CoemCloudJourney-webapp"
-      }
-    ],
-    "outputResources": [
-      {
-        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/serverfarms/AppServicePlan-CoemCloudJourney"
-      },
-      {
-        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/sites/CoemCloudJourney-webapp"
-      }
-    ],
-    "validationLevel": "Template"
-  }
+    "resources": [
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('appServicePlanName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "sku": {
+                "name": "[parameters('sku')]"
+            },
+            "kind": "app",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[variables('webAppPortalName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+            ],
+            "kind": "app",
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+            }
+        }
+    ]
 }
