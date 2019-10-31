@@ -1,172 +1,80 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "sites_cloudjourneyapp_name": {
-            "defaultValue": "cloudjourneyapp",
-            "type": "String"
-        },
-        "serverfarms_ASP_COEMRecursos_9d4b_externalid": {
-            "defaultValue": "/subscriptions/4170bce6-1f0c-499d-bb34-6364a50aff17/resourceGroups/COEMRecursos/providers/Microsoft.Web/serverfarms/ASP-COEMRecursos-9d4b",
-            "type": "String"
-        }
+  "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Resources/deployments/Microsoft.Template",
+  "name": "Microsoft.Template",
+  "type": "Microsoft.Resources/deployments",
+  "tags": {
+    "marketplaceItemId": "Microsoft.Template",
+    "primaryResourceId": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourcegroups/CloudJourneyCOEM"
+  },
+  "properties": {
+    "templateLink": {
+      "uri": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-webapp-basic-windows/azuredeploy.json",
+      "contentVersion": "1.0.0.0"
     },
-    "variables": {},
-    "resources": [
-        {
-            "type": "Microsoft.Web/sites",
-            "apiVersion": "2016-08-01",
-            "name": "[parameters('sites_cloudjourneyapp_name')]",
-            "location": "East US 2",
-            "kind": "app",
-            "properties": {
-                "enabled": true,
-                "hostNameSslStates": [
-                    {
-                        "name": "[concat(parameters('sites_cloudjourneyapp_name'), '.azurewebsites.net')]",
-                        "sslState": "Disabled",
-                        "hostType": "Standard"
-                    },
-                    {
-                        "name": "[concat(parameters('sites_cloudjourneyapp_name'), '.scm.azurewebsites.net')]",
-                        "sslState": "Disabled",
-                        "hostType": "Repository"
-                    }
-                ],
-                "serverFarmId": "[parameters('serverfarms_ASP_COEMRecursos_9d4b_externalid')]",
-                "reserved": false,
-                "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": true,
-                "clientCertEnabled": false,
-                "hostNamesDisabled": false,
-                "containerSize": 0,
-                "dailyMemoryTimeQuota": 0,
-                "httpsOnly": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/config",
-            "apiVersion": "2016-08-01",
-            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/web')]",
-            "location": "East US 2",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
-            ],
-            "properties": {
-                "numberOfWorkers": 1,
-                "defaultDocuments": [
-                    "index.html"
-                ],
-                "netFrameworkVersion": "v4.0",
-                "phpVersion": "5.6",
-                "pythonVersion": "",
-                "nodeVersion": "",
-                "linuxFxVersion": "",
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": "VS2017",
-                "httpLoggingEnabled": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$cloudjourneyapp",
-                "scmType": "None",
-                "use32BitWorkerProcess": true,
-                "webSocketsEnabled": false,
-                "alwaysOn": false,
-                "appCommandLine": "",
-                "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": false,
-                        "virtualDirectories": null
-                    }
-                ],
-                "winAuthAdminState": 0,
-                "winAuthTenantState": 0,
-                "customAppPoolIdentityAdminState": false,
-                "customAppPoolIdentityTenantState": false,
-                "loadBalancing": "LeastRequests",
-                "routingRules": [],
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "autoHealEnabled": false,
-                "vnetName": "",
-                "siteAuthEnabled": false,
-                "siteAuthSettings": {
-                    "enabled": null,
-                    "unauthenticatedClientAction": null,
-                    "tokenStoreEnabled": null,
-                    "allowedExternalRedirectUrls": null,
-                    "defaultProvider": null,
-                    "clientId": null,
-                    "clientSecret": null,
-                    "clientSecretCertificateThumbprint": null,
-                    "issuer": null,
-                    "allowedAudiences": null,
-                    "additionalLoginParams": null,
-                    "isAadAutoProvisioned": false,
-                    "googleClientId": null,
-                    "googleClientSecret": null,
-                    "googleOAuthScopes": null,
-                    "facebookAppId": null,
-                    "facebookAppSecret": null,
-                    "facebookOAuthScopes": null,
-                    "twitterConsumerKey": null,
-                    "twitterConsumerSecret": null,
-                    "microsoftAccountClientId": null,
-                    "microsoftAccountClientSecret": null,
-                    "microsoftAccountOAuthScopes": null
-                },
-                "cors": {
-                    "allowedOrigins": [
-                        "*"
-                    ],
-                    "supportCredentials": false
-                },
-                "localMySqlEnabled": false,
-                "http20Enabled": false,
-                "minTlsVersion": "1.2",
-                "ftpsState": "AllAllowed",
-                "reservedInstanceCount": 0,
-                "fileChangeAuditEnabled": false,
-                "functionsRuntimeScaleMonitoringEnabled": false
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/deployments",
-            "apiVersion": "2016-08-01",
-            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/65a0c9bf14ca49278849328315378a2b')]",
-            "location": "East US 2",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
-            ],
-            "properties": {
-                "id": "65a0c9bf14ca49278849328315378a2b",
-                "status": 4,
-                "author_email": "N/A",
-                "author": "VS Code",
-                "deployer": "Push-Deployer",
-                "message": "Created via a push deployment",
-                "start_time": "2019-10-23T20:37:43.6239043Z",
-                "end_time": "2019-10-23T20:49:26.1761427Z",
-                "active": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2016-08-01",
-            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/', parameters('sites_cloudjourneyapp_name'), '.azurewebsites.net')]",
-            "location": "East US 2",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
-            ],
-            "properties": {
-                "siteName": "cloudjourneyapp",
-                "hostNameType": "Verified"
-            }
-        }
-    ]
+    "templateHash": "13436529045413758475",
+    "parameters": {
+      "webAppName": {
+        "type": "String",
+        "value": "CoemCloudJourney"
+      },
+      "sku": {
+        "type": "String",
+        "value": "F1"
+      },
+      "location": {
+        "type": "String",
+        "value": "eastus"
+      }
+    },
+    "mode": "Incremental",
+    "debugSetting": {
+      "detailLevel": "None"
+    },
+    "provisioningState": "Succeeded",
+    "timestamp": "2019-10-30T15:54:20.5822673Z",
+    "duration": "PT22.957525S",
+    "correlationId": "a4d48b8f-2d01-43ec-864d-4a94d6634e0c",
+    "providers": [
+      {
+        "namespace": "Microsoft.Web",
+        "resourceTypes": [
+          {
+            "resourceType": "serverfarms",
+            "locations": [
+              "eastus"
+            ]
+          },
+          {
+            "resourceType": "sites",
+            "locations": [
+              "eastus"
+            ]
+          }
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/serverfarms/AppServicePlan-CoemCloudJourney",
+            "resourceType": "Microsoft.Web/serverfarms",
+            "resourceName": "AppServicePlan-CoemCloudJourney"
+          }
+        ],
+        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/sites/CoemCloudJourney-webapp",
+        "resourceType": "Microsoft.Web/sites",
+        "resourceName": "CoemCloudJourney-webapp"
+      }
+    ],
+    "outputResources": [
+      {
+        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/serverfarms/AppServicePlan-CoemCloudJourney"
+      },
+      {
+        "id": "/subscriptions/d6214211-230c-444e-b6a3-a3dd2778b216/resourceGroups/CloudJourneyCOEM/providers/Microsoft.Web/sites/CoemCloudJourney-webapp"
+      }
+    ],
+    "validationLevel": "Template"
+  }
 }
