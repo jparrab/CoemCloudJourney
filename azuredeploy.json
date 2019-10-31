@@ -17,8 +17,8 @@
             }
         },
         "location": {
-            "type": "String",
-			"allowedValues": [ 
+             "type": "String", 
+            "allowedValues": [ 
                 "Central US", 
                 "East US", 
                 "East US 2", 
@@ -37,11 +37,11 @@
                 "Australia Southeast", 
                 "West India", 
                 "Central India", 
-                "South India"
-				],
-            "metadata": {
-                "description": "Location for all resources"
-            }
+                "South India" 
+            ], 
+            "metadata": { 
+                "description": "Location of the App Service Environment" 
+            } 
         }
     },
     "variables": {
