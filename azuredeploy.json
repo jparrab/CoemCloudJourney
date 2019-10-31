@@ -54,7 +54,7 @@
     },
 	"repoUrl": {
       "type": "string",
-	  "defaultValue": "https://github.com/jparrab/CoemCloudJourney"
+	  "defaultValue": "https://github.com/jparrab/CoemCloudJourney/tree/master/site"
     },
     "branch": {
       "type": "string",
@@ -145,17 +145,9 @@
         "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName')))]": "empty",
         "displayName": "Website"
       },
-      "properties": {
-          "enabled": true,          
+      "properties": {            
           "name": "[variables('webSiteName')]",
-          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
-          "reserved": false,
-          "clientAffinityEnabled": true,
-          "clientCertEnabled": false,
-          "hostNamesDisabled": false,
-          "containerSize": 0,
-          "dailyMemoryTimeQuota": 0,
-          "httpsOnly": true
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"          
       },
       "resources": [
         {
@@ -172,88 +164,6 @@
               }
         }
       ]
-  },
-  {
-      "type": "Microsoft.Web/sites/config",
-      "apiVersion": "2016-08-01",
-      "name": "[concat(variables('webSiteName'), '/web')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
-      ],
-      "properties": 
-      {
-          "numberOfWorkers": 1,
-          "defaultDocuments": [
-              "index.html"
-          ],
-          "netFrameworkVersion": "v4.0",
-          "phpVersion": "5.6",
-          "pythonVersion": "",
-          "nodeVersion": "",
-          "linuxFxVersion": "",
-          "requestTracingEnabled": false,
-          "remoteDebuggingEnabled": false,
-          "remoteDebuggingVersion": "VS2017",
-          "httpLoggingEnabled": false,
-          "logsDirectorySizeLimit": 35,
-          "detailedErrorLoggingEnabled": false,
-          "publishingUsername": "$cloudjourneyapp",
-          "scmType": "None",
-          "use32BitWorkerProcess": true,
-          "webSocketsEnabled": false,
-          "alwaysOn": false,
-          "appCommandLine": "",
-          "managedPipelineMode": "Integrated",
-          "virtualApplications": [
-              {
-                  "virtualPath": "/",
-                  "physicalPath": "site\\wwwroot",
-                  "preloadEnabled": false,
-                  "virtualDirectories": null
-              }
-          ],
-          "winAuthAdminState": 0,
-          "winAuthTenantState": 0,
-          "customAppPoolIdentityAdminState": false,
-          "customAppPoolIdentityTenantState": false,
-          "loadBalancing": "LeastRequests",
-          "routingRules": [],
-          "experiments": 
-          {
-              "rampUpRules": []
-          },
-          "autoHealEnabled": false,
-          "vnetName": "",
-          "siteAuthEnabled": false,         
-          "cors": 
-          {
-              "allowedOrigins": [
-                  "*"
-              ],
-              "supportCredentials": false
-          },
-          "localMySqlEnabled": false,
-          "http20Enabled": false,
-          "minTlsVersion": "1.2",
-          "ftpsState": "AllAllowed",
-          "reservedInstanceCount": 0,
-          "fileChangeAuditEnabled": false,
-          "functionsRuntimeScaleMonitoringEnabled": false
-      }
-  },
-  {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2016-08-01",
-      "name": "[concat(variables('webSiteName'), '/', variables('webSiteName'), '.azurewebsites.net')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
-      ],
-      "properties": {
-          "siteName": "cloudjourneyapp",
-          "hostNameType": "Verified"
-      }
   }    
   ],
   "outputs": {
