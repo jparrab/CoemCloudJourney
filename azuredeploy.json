@@ -163,7 +163,6 @@
         },
 		{
           "apiVersion": "2016-03-01",
-		  "condition": "[greater(length(parameters('repoUrl')), 0)]",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
