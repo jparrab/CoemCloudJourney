@@ -132,48 +132,160 @@
       }
     },
     {
-      "apiVersion": "2016-03-01",
-      "name": "[variables('webSiteName')]",
       "type": "Microsoft.Web/sites",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[variables('hostingPlanName')]"
-      ],
-      "tags": {
-        "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName')))]": "empty",
-        "displayName": "Website"
-      },
+      "apiVersion": "2016-08-01",
+      "name": "[variables('webSiteName')]",
+      "location": "East US 2",
+      "kind": "app",
       "properties": {
-        "name": "[variables('webSiteName')]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2016-03-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [
-            "[variables('webSiteName')]"
+          "enabled": true,
+          "hostNameSslStates": [
+              {
+                  "name": "[concat(variables('webSiteName'), '.azurewebsites.net')]",
+                  "sslState": "Disabled",
+                  "hostType": "Standard"
+              },
+              {
+                  "name": "[concat(variables('webSiteName'), '.scm.azurewebsites.net')]",
+                  "sslState": "Disabled",
+                  "hostType": "Repository"
+              }
           ],
-          "properties": {
-            "CloudJourneyEntities": {
-				"value": "test"
-            }
-          }
-        },
-		{
-      "apiVersion": "2015-08-01",
-          "name": "web",
-          "type": "sourcecontrols",
-          "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites/', concat('webSite', uniqueString(resourceGroup().id)))]"
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "reserved": false,
+          "scmSiteAlsoStopped": false,
+          "clientAffinityEnabled": true,
+          "clientCertEnabled": false,
+          "hostNamesDisabled": false,
+          "containerSize": 0,
+          "dailyMemoryTimeQuota": 0,
+          "httpsOnly": true
+      }
+  },
+  {
+      "type": "Microsoft.Web/sites/config",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(variables('webSiteName'), '/web')]",
+      "location": "East US 2",
+      "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
+      ],
+      "properties": {
+          "numberOfWorkers": 1,
+          "defaultDocuments": [
+              "index.html"
           ],
-          "properties": {
-            "RepoUrl": "[parameters('repoUrl')]",
-            "branch": "[parameters('branch')]",
-            "IsManualIntegration": true
-          }
-        }
+          "netFrameworkVersion": "v4.0",
+          "phpVersion": "5.6",
+          "pythonVersion": "",
+          "nodeVersion": "",
+          "linuxFxVersion": "",
+          "requestTracingEnabled": false,
+          "remoteDebuggingEnabled": false,
+          "remoteDebuggingVersion": "VS2017",
+          "httpLoggingEnabled": false,
+          "logsDirectorySizeLimit": 35,
+          "detailedErrorLoggingEnabled": false,
+          "publishingUsername": "$cloudjourneyapp",
+          "scmType": "None",
+          "use32BitWorkerProcess": true,
+          "webSocketsEnabled": false,
+          "alwaysOn": false,
+          "appCommandLine": "",
+          "managedPipelineMode": "Integrated",
+          "virtualApplications": [
+              {
+                  "virtualPath": "/",
+                  "physicalPath": "site\\wwwroot",
+                  "preloadEnabled": false,
+                  "virtualDirectories": null
+              }
+          ],
+          "winAuthAdminState": 0,
+          "winAuthTenantState": 0,
+          "customAppPoolIdentityAdminState": false,
+          "customAppPoolIdentityTenantState": false,
+          "loadBalancing": "LeastRequests",
+          "routingRules": [],
+          "experiments": {
+              "rampUpRules": []
+          },
+          "autoHealEnabled": false,
+          "vnetName": "",
+          "siteAuthEnabled": false,
+          "siteAuthSettings": {
+              "enabled": null,
+              "unauthenticatedClientAction": null,
+              "tokenStoreEnabled": null,
+              "allowedExternalRedirectUrls": null,
+              "defaultProvider": null,
+              "clientId": null,
+              "clientSecret": null,
+              "clientSecretCertificateThumbprint": null,
+              "issuer": null,
+              "allowedAudiences": null,
+              "additionalLoginParams": null,
+              "isAadAutoProvisioned": false,
+              "googleClientId": null,
+              "googleClientSecret": null,
+              "googleOAuthScopes": null,
+              "facebookAppId": null,
+              "facebookAppSecret": null,
+              "facebookOAuthScopes": null,
+              "twitterConsumerKey": null,
+              "twitterConsumerSecret": null,
+              "microsoftAccountClientId": null,
+              "microsoftAccountClientSecret": null,
+              "microsoftAccountOAuthScopes": null
+          },
+          "cors": {
+              "allowedOrigins": [
+                  "*"
+              ],
+              "supportCredentials": false
+          },
+          "localMySqlEnabled": false,
+          "http20Enabled": false,
+          "minTlsVersion": "1.2",
+          "ftpsState": "AllAllowed",
+          "reservedInstanceCount": 0,
+          "fileChangeAuditEnabled": false,
+          "functionsRuntimeScaleMonitoringEnabled": false
+      }
+  },
+  {
+      "type": "Microsoft.Web/sites/deployments",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(variables('webSiteName'), '/65a0c9bf14ca49278849328315378a2b')]",
+      "location": "East US 2",
+      "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
+      ],
+      "properties": {
+          "id": "65a0c9bf14ca49278849328315378a2b",
+          "status": 4,
+          "author_email": "N/A",
+          "author": "VS Code",
+          "deployer": "Push-Deployer",
+          "message": "Created via a push deployment",
+          "start_time": "2019-10-23T20:37:43.6239043Z",
+          "end_time": "2019-10-23T20:49:26.1761427Z",
+          "active": true
+      }
+  },
+  {
+      "type": "Microsoft.Web/sites/hostNameBindings",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(variables('webSiteName'), '/', variables('webSiteName'), '.azurewebsites.net')]",
+      "location": "East US 2",
+      "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
+      ],
+      "properties": {
+          "siteName": "cloudjourneyapp",
+          "hostNameType": "Verified"
+      }
+  }
       ]
     }
   ],
