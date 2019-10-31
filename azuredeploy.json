@@ -279,7 +279,7 @@
   "outputs": {
     "siteUri": {
       "type": "string",
-      "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName')))]"
+      "value": "[reference(concat('Microsoft.Web/sites/', variables('webSiteName'))).]"
     },
     "sqlSvrFqdn": {
       "type": "string",
