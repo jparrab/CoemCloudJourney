@@ -243,27 +243,6 @@
       }
   },
   {
-      "type": "Microsoft.Web/sites/deployments",
-      "apiVersion": "2016-08-01",
-      "name": "[concat(variables('webSiteName'), '/65a0c9bf14ca49278849328315378a2b')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-          "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
-      ],
-      "properties": 
-      {
-          "id": "65a0c9bf14ca49278849328315378a2b",
-          "status": 4,
-          "author_email": "N/A",
-          "author": "VS Code",
-          "deployer": "Push-Deployer",
-          "message": "Created via a push deployment",
-          "start_time": "2019-10-23T20:37:43.6239043Z",
-          "end_time": "2019-10-23T20:49:26.1761427Z",
-          "active": true
-      }
-  },
-  {
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2016-08-01",
       "name": "[concat(variables('webSiteName'), '/', variables('webSiteName'), '.azurewebsites.net')]",
