@@ -1,68 +1,40 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "webAppName": {
-      "type": "string",
-      "metadata": {
-        "description": "Base name of the resource such as web app name and app service plan"
-      },
-      "minLength": 2
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_cloudjourneyapp_name": {
+            "defaultValue": "cloudjourneyapp",
+            "type": "String"
+        },
+        "serverfarms_ASP_COEMRecursos_9d4b_externalid": {
+            "defaultValue": "/subscriptions/4170bce6-1f0c-499d-bb34-6364a50aff17/resourceGroups/COEMRecursos/providers/Microsoft.Web/serverfarms/ASP-COEMRecursos-9d4b",
+            "type": "String"
+        }
     },
-    "sku":{
-      "type": "string",
-      "defaultValue" : "F1",
-      "metadata": {
-        "description": "The SKU of App Service Plan, by default is Standard S1"
-      }
-    },
-    "location": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().location]",
-      "metadata": {
-        "description": "Location for all resources"
-      }
-    }
-  },
-  "variables": {
-    "webAppPortalName": "[concat(parameters('webAppName'), '-webapp')]",
-    "appServicePlanName": "[concat('AppServicePlan-', parameters('webAppName'))]"
-  },
-  "resources": [
-    {
-      "apiVersion": "2018-02-01",
-      "type": "Microsoft.Web/serverfarms",
-      "kind": "app",
-      "name": "[variables('appServicePlanName')]",
-      "location": "[parameters('location')]",
-      "properties": {},
-      "dependsOn": [],
-      "sku": {
-        "name": "[parameters('sku')]"
-      }
-    },
-    {
-      "apiVersion": "2018-11-01",
-      "type": "Microsoft.Web/sites",
-      "kind": "app",
-      "name": "[variables('webAppPortalName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-		"enabled": true,
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "name": "[parameters('sites_cloudjourneyapp_name')]",
+            "location": "East US 2",
+            "kind": "app",
+            "properties": {
+                "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('webAppPortalName'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_cloudjourneyapp_name'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('webAppPortalName'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_cloudjourneyapp_name'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-		 "reserved": false,
+                "serverFarmId": "[parameters('serverfarms_ASP_COEMRecursos_9d4b_externalid')]",
+                "reserved": false,
                 "scmSiteAlsoStopped": false,
                 "clientAffinityEnabled": true,
                 "clientCertEnabled": false,
@@ -70,19 +42,15 @@
                 "containerSize": 0,
                 "dailyMemoryTimeQuota": 0,
                 "httpsOnly": true
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
-      ]
-    },
-	{
-	
+            }
+        },
+        {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2016-08-01",
-            "name": "[concat(parameters('webAppPortalName'), '/web')]",
-            "location": "[parameters('location')]",
+            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/web')]",
+            "location": "East US 2",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppPortalName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": 1,
@@ -167,18 +135,38 @@
                 "functionsRuntimeScaleMonitoringEnabled": false
             }
         },
-		{
+        {
+            "type": "Microsoft.Web/sites/deployments",
+            "apiVersion": "2016-08-01",
+            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/65a0c9bf14ca49278849328315378a2b')]",
+            "location": "East US 2",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
+            ],
+            "properties": {
+                "id": "65a0c9bf14ca49278849328315378a2b",
+                "status": 4,
+                "author_email": "N/A",
+                "author": "VS Code",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2019-10-23T20:37:43.6239043Z",
+                "end_time": "2019-10-23T20:49:26.1761427Z",
+                "active": true
+            }
+        },
+        {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2016-08-01",
-            "name": "[concat(parameters('webAppPortalName'), '/', parameters('webAppPortalName'), '.azurewebsites.net')]",
-            "location": "[parameters('location')]",
+            "name": "[concat(parameters('sites_cloudjourneyapp_name'), '/', parameters('sites_cloudjourneyapp_name'), '.azurewebsites.net')]",
+            "location": "East US 2",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('webAppPortalName'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_cloudjourneyapp_name'))]"
             ],
             "properties": {
                 "siteName": "cloudjourneyapp",
                 "hostNameType": "Verified"
             }
         }
-  ]
+    ]
 }
