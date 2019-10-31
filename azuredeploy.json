@@ -170,7 +170,8 @@
       "dependsOn": [
           "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
       ],
-      "properties": {
+      "properties": 
+      {
           "numberOfWorkers": 1,
           "defaultDocuments": [
               "index.html"
@@ -207,13 +208,15 @@
           "customAppPoolIdentityTenantState": false,
           "loadBalancing": "LeastRequests",
           "routingRules": [],
-          "experiments": {
+          "experiments": 
+          {
               "rampUpRules": []
           },
           "autoHealEnabled": false,
           "vnetName": "",
           "siteAuthEnabled": false,
-          "siteAuthSettings": {
+          "siteAuthSettings": 
+          {
               "enabled": null,
               "unauthenticatedClientAction": null,
               "tokenStoreEnabled": null,
@@ -238,7 +241,8 @@
               "microsoftAccountClientSecret": null,
               "microsoftAccountOAuthScopes": null
           },
-          "cors": {
+          "cors": 
+          {
               "allowedOrigins": [
                   "*"
               ],
@@ -261,7 +265,8 @@
       "dependsOn": [
           "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
       ],
-      "properties": {
+      "properties": 
+      {
           "id": "65a0c9bf14ca49278849328315378a2b",
           "status": 4,
           "author_email": "N/A",
@@ -286,8 +291,7 @@
           "hostNameType": "Verified"
       }
   }
-      ]
-    }
+    
   ],
   "outputs": {
     "siteUri": {
