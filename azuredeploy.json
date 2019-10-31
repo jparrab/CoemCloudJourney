@@ -135,8 +135,15 @@
       "type": "Microsoft.Web/sites",
       "apiVersion": "2016-08-01",
       "name": "[variables('webSiteName')]",
-      "location": "East US 2",
+      "location": "[parameters('location')]",
       "kind": "app",
+      "dependsOn": [
+        "[variables('hostingPlanName')]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName')))]": "empty",
+        "displayName": "Website"
+      },
       "properties": {
           "enabled": true,
           "hostNameSslStates": [
@@ -151,6 +158,7 @@
                   "hostType": "Repository"
               }
           ],
+          "name": "[variables('webSiteName')]",
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
           "reserved": false,
           "scmSiteAlsoStopped": false,
@@ -166,7 +174,7 @@
       "type": "Microsoft.Web/sites/config",
       "apiVersion": "2016-08-01",
       "name": "[concat(variables('webSiteName'), '/web')]",
-      "location": "East US 2",
+      "location": "[parameters('location')]",
       "dependsOn": [
           "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
       ],
@@ -261,7 +269,7 @@
       "type": "Microsoft.Web/sites/deployments",
       "apiVersion": "2016-08-01",
       "name": "[concat(variables('webSiteName'), '/65a0c9bf14ca49278849328315378a2b')]",
-      "location": "East US 2",
+      "location": "[parameters('location')]",
       "dependsOn": [
           "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
       ],
@@ -282,7 +290,7 @@
       "type": "Microsoft.Web/sites/hostNameBindings",
       "apiVersion": "2016-08-01",
       "name": "[concat(variables('webSiteName'), '/', variables('webSiteName'), '.azurewebsites.net')]",
-      "location": "East US 2",
+      "location": "[parameters('location')]",
       "dependsOn": [
           "[resourceId('Microsoft.Web/sites', variables('webSiteName'))]"
       ],
