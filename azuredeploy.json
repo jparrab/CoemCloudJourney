@@ -159,7 +159,7 @@
       },
       "resources": [
         {
-          "apiVersion": "2014-04-01",
+          "apiVersion": "2015-08-01",
               "name": "web",
               "type": "sourcecontrols",
               "dependsOn": [
