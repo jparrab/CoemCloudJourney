@@ -37,7 +37,8 @@
                 "Australia Southeast", 
                 "West India", 
                 "Central India", 
-                "South India" 
+                "South India"
+				],
             "metadata": {
                 "description": "Location for all resources"
             }
