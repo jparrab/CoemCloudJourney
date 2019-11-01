@@ -64,7 +64,7 @@
   "variables": {
     "hostingPlanName": "[concat('hostingplan', uniqueString(resourceGroup().id))]",
     "webSiteName": "[concat('webSite', uniqueString(resourceGroup().id))]",
-    "sqlserverName": "[concat('sqlserver', 'CoemCloudJourney')]",
+    "sqlserverName": "[concat('sqlserver', 'coemcloudjourney')]",
     "databaseName": "CoemCloudJourney"
   },
   "resources": 
