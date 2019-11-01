@@ -59,6 +59,14 @@
     "branch": {
       "type": "string",
 	  "defaultValue": "master"
+    },
+    "powerbiWorkspaceName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 63,
+      "metadata": {
+        "description": "A unique name for the PowerBI workspace collection. It should match with the following regular expression: ^(?:[a-zA-Z0-9]+-?)+$ or it will raise an error. "
+      }
     }
   },
   "variables": {
@@ -255,6 +263,24 @@
             }
           ]
       }
+    },
+    {
+      "apiVersion": "2016-01-29",
+      "type": "Microsoft.PowerBI/workspaceCollections",
+      "name": "[parameters('powerbiWorkspaceName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('skuName')]"
+      },
+      "tags": {
+        "ObjectName": "[parameters('powerbiWorkspaceName')]"
+      }
     }
-  ]
+  ],
+  "outputs": {
+    "powerbiWorkspaceName": {
+      "type": "string",
+      "value": "[parameters('powerbiWorkspaceName')]"
+    }
+  }
 }
