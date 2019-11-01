@@ -270,7 +270,7 @@
       "name": "[parameters('powerbiWorkspaceName')]",
       "location": "East US2",
       "sku": {
-        "name": "[parameters('skuName')]"
+        "name": "S1"
       },
       "tags": {
         "ObjectName": "[parameters('powerbiWorkspaceName')]"
