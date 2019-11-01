@@ -281,6 +281,14 @@
     "powerbiWorkspaceName": {
       "type": "string",
       "value": "[parameters('powerbiWorkspaceName')]"
+    },
+    "webSiteName": {
+      "type": "string",
+      "value": "[concat('webSite', uniqueString(resourceGroup().id))]"
+    },
+    "sqlserverName": {
+      "type": "string",
+      "value": "[concat('sqlserver', uniqueString(resourceGroup().id))]"
     }
   }
 }
