@@ -268,7 +268,7 @@
       "apiVersion": "2016-01-29",
       "type": "Microsoft.PowerBI/workspaceCollections",
       "name": "[parameters('powerbiWorkspaceName')]",
-      "location": "[parameters('location')]",
+      "location": "East US2",
       "sku": {
         "name": "[parameters('skuName')]"
       },
